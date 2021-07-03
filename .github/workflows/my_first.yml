@@ -52,24 +52,24 @@ jobs:
         with:
           name: unit_test_report
           path: app/build/reports/tests/testDebugUnitTest/
+                   
+  instrumentation-test:
+      needs: [unit-test]
+      runs-on: macos-latest
+      steps:
+        - name: Checkout the code
+          uses: actions/checkout@v2
 
-instrumentation-test:
-  needs: [unit-test]
-  runs-on: ubuntu-latest
-  steps:
-    - name: Checkout the code
-      uses: actions/checkout@v2
+        - name: Run espresso tests
+          uses: reactivecircus/android-emulator-runner@v2
+          with:
+            api-level: 29
+            script: ./gradlew connectedCheck
 
-    - name: Run Espresso Test
-      uses: reactivecircus/android-emulator-runner@v2
-      with:
-        api-level: 29
-        script: ./gradlew/connectedCheck
-
-    - name: Upload Test Report
-      uses: actions/upload-artifact@v2
-      with:
-        name: Instrumentation_test_report
-        path: app/build/reports/androidTests/connected/
+        - name: Upload test report
+          uses: actions/upload-artifact@v2
+          with:
+            name: instrumentation_test_report
+            path: app/build/reports/androidTests/connected/
 
 
