@@ -51,3 +51,24 @@ unit-test:
     -uses:actions/upload-artifact@v2
       with: unit_test_report
       path:app/build/reports/test/testDebugUnitTest/
+
+instrumentation-test:
+  needs: [unit-test]
+  runs-on: ubuntu-latest
+  steps:
+    - name: Checkout the code
+      uses: actions/checkout@v2
+
+    - name: Run Espresso Test
+      uses: reactivecircus/android-emulator-runner@v2
+      with:
+        api-level: 29
+        script: ./gradlew/connectedCheck
+
+    - name: Upload Test Report
+      uses: actions/upload-artifact@v2
+      with:
+        name: Instrumentation_test_report
+        path: app/build/reports/androidTests/connected/
+
+
