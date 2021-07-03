@@ -83,7 +83,7 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         - name: Run tests
-            run: echo Run static code analysis
+          run: echo Run static code analysis
 #        - name: Checkout the code
 #          uses: actions/checkout@v2
 #
