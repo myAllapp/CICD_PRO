@@ -72,25 +72,25 @@ jobs:
             name: instrumentation_test_report
             path: app/build/reports/androidTests/connected/
 
-  coverage-report:
-    needs: [instrumentation-test]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout the code
-        uses: actions/checkout@v2
-
-      - name: Run jacoco
-        run: ./gradlew createDebugCoverageReport
-
-      - name: Upload coverage report
-        uses: actions/upload-artifact@v2
-          with:
-            name: coverage report
-            path: app/build/reports/coverage/debug/index_coverage.html
+#  coverage-report:
+#    needs: [instrumentation-test]
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout the code
+#        uses: actions/checkout@v2
+#
+#      - name: Run jacoco
+#        run: ./gradlew createDebugCoverageReport
+#
+#      - name: Upload coverage report
+#        uses: actions/upload-artifact@v2
+#          with:
+#            name: coverage report
+#            path: app/build/reports/coverage/debug/index_coverage.html
 
 
   static_code_analysis:
-      needs: [coverage-report]
+      needs: [unit-test]
       runs-on: ubuntu-latest
       steps:
         - name: Checkout the code
