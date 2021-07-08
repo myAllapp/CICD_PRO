@@ -90,7 +90,7 @@ jobs:
 
 
   static_code_analysis:
-      needs: [coverage-report]
+      needs: [unit-test]
       runs-on: ubuntu-latest
       steps:
         - name: Checkout the code
